@@ -51,36 +51,62 @@ THEN the password is either displayed in an alert or written to the page
 
 
 // var strings - uppcaseletters, lowercase, and symbols
-var uppercaseletters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var lowercaseletters = "abcdefghijklmnopqrstuvwxyz";
-var symbols = " !;#$%&()*+,-./:;<>=?@[]^_'`{}|~"
-var numbers = "0123456789"
-var randomnumber = Math.floor(Math.random () *10) + 1;
 
-console.log ("UPPERCASE Index - ", uppercaseletters.length, " letters: " ,uppercaseletters);
-console.log ("lowercase 9ndex - ", lowercaseletters.length, "letters: ", lowercaseletters);
+// declaration of index variables
+var alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var alphabetLower = "abcdefghijklmnopqrstuvwxyz";
+var symbols = " !;#$%&()*+,-./:;<>=?@[]^_'`{}|~";
+var numbers = "0123456789";
+
+// declaration of random variables
+var randomnumber = Math.floor(Math.random () *10) + 1;
+var randomUp;
+var randomLow;
+
+// declaration of variables i will use for questions
+var characterLength;
+var caps;
+var NumericInclusion;
+var SpecialCharacterInclusion;
+
+function UpperCaseGenerator () {
+  randomUp = alphabetUpper[Math.floor(Math.random () * alphabetUpper.length)];
+}
+
+UpperCaseGenerator();
+
+function LowerCaseGenerator () {
+  randomLow = alphabetLower[Math.floor(Math.random () * alphabetLower.length)];
+}
+
+LowerCaseGenerator ();
+
+console.log ("UPPERCASE Index - ", alphabetUpper.length, " letters: ", alphabetUpper);
+console.log ("lowercase index - ", alphabetLower.length, "letters: ", alphabetLower);
 console.log ("Symbol Index - ", symbols.length, " possible symbols: ", symbols);
 console.log ("Number Index - ", numbers.length, " possible numbers:", numbers);
 console.log ("Random Number Generator- ", randomnumber);
+console.log ("Random Uppercase Letter", randomUp);
+console.log ("Random Lowercase Letter", randomLow);
 
 function generatePassword () {
 
   /* Question to ask about desired password length*/
   function CharacterQuestion () {
-    let characterlength = window.prompt("How many characters would you like your password to contain (range: 8-128 characters?");
+    characterLength = window.prompt("How many characters would you like your password to contain (range: 8-128 characters?");
      
-    if (!characterlength) {
+    if (!characterLength) {
       return;
     }
-    else if (characterlength > 128 || characterlength < 8) {
+    else if (characterLength > 128 || characterLength < 8) {
       window.alert("Please enter a number between 8-128.")
       CharacterQuestion();
     }
     else {
       // CharacterQuestion = CharacterQuestion.toArray();
-      console.log(eval(characterlength.valueOf()))
+      console.log(eval(characterLength.valueOf()))
       // Converting string to number
-      console.log ("There are ", characterlength.valueOf(), "characters in this password.");
+      console.log ("There are ", characterLength.valueOf(), "characters in this password.");
       UppercaseQuestion();
     }
   }
@@ -89,10 +115,10 @@ function generatePassword () {
 
   /* Question to ask about uppercase*/
   function UppercaseQuestion () {
-    let caps = window.confirm("Do you want your password to include UPPERCASE characters?  Click 'OK' to confirm or 'CANCEL' for only lowercase.");
+    caps = window.confirm("Do you want your password to include UPPERCASE characters?  Click 'OK' to confirm or 'CANCEL' for only lowercase.");
     
     if (caps) {
-      console.log ("There should be UPPERCASE letters in this password.", uppercaseletters);
+      console.log ("There should be UPPERCASE letters in this password.", alphabetUpper);
     }
     else {
       console.log ("No lowercase letters should be included.");
@@ -103,7 +129,7 @@ function generatePassword () {
   
   /* Question to ask about numbers*/
   function NumberQuestion () {
-    let NumericInclusion = window.confirm("Do you want your password to include NUMBERS?  Click 'OK' to confirm or 'CANCEL'.");
+    NumericInclusion = window.confirm("Do you want your password to include NUMBERS?  Click 'OK' to confirm or 'CANCEL'.");
     
     if (NumericInclusion) {
       console.log ("There should be numbers in this password.");
@@ -117,7 +143,7 @@ function generatePassword () {
 
   /* Question to ask about special characters*/
   function SpecialCharacterQuestion () {
-    let SpecialCharacterInclusion = window.confirm("Do you want your password to include any SPECIAL CHARACTERS/SYMBOLS (ex: $&#!~, etc.)?  Click 'OK' to confirm or 'CANCEL'.");
+    SpecialCharacterInclusion = window.confirm("Do you want your password to include any SPECIAL CHARACTERS/SYMBOLS (ex: $&#!~, etc.)?  Click 'OK' to confirm or 'CANCEL'.");
 
     if (SpecialCharacterInclusion) {
         console.log ("Special characters should be included in this password.", symbols);
@@ -129,23 +155,29 @@ function generatePassword () {
 
   // at least one character type should be selected
   function validate () {
-    if (!UppercaseQuestion.caps && !SpecialCharacterQuestion.SpecialCharacterInclusion && !NumberQuestion.NumericInclusion) {
-    window.alert("Uh-oh!  Try again.  You must use one of the character types to generate a new password");
-    console.log("Form recycled due to all cancels.");
-    UppercaseQuestion();
-    } else {
+    if (!caps && !SpecialCharacterInclusion && !NumericInclusion) {
+      window.alert("Uh-oh!  Try again.  You must use one of the character types to generate a new password");
+      console.log("The user has to try again.");
+      UppercaseQuestion();
+    }
+    else {
       console.log ("The user data was submitted succesfully.");
-      stringitalltogether();
     }
   }
+
+  stringitalltogether();
   
   function stringitalltogether () {
-    if (UppercaseQuestion && NumberQuestion && SpecialCharacterQuestion) {
+    // for (i = 0; i < characterLength; i++) {
+    
+    // }
+    if (caps && NumericInclusion && SpecialCharacterInclusion) {
       console.log("All true.");
     }
     else {
-      console.log("One of these is false");
+      console.log("At least one of these is false");
     }
+
   }
   
   //   This is where I will add it all together
@@ -153,7 +185,7 @@ function generatePassword () {
   //   Hint:  look up what += means
   //   it is when you are looking to add a value to an already existing variable.
 
-  // for (let i = 0; i < characterlength.valueOf(); i++) {
+  // for (let i = 0; i < characterLength.valueOf(); i++) {
     
   //   password = [Math.floor(Math.random() * words.length)];
     
