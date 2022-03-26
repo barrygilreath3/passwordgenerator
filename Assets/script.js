@@ -50,9 +50,7 @@ THEN the password is either displayed in an alert or written to the page
 // var symbols = [" ", "!", '"', "#", "$", "%", "&", '(', ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "'", "`", "{", "}", "|", "~"];
 
 
-// var strings - uppcaseletters, lowercase, and symbols
-
-// declaration of index variables
+// declaration of universal index variables
 var alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var alphabetLower = "abcdefghijklmnopqrstuvwxyz";
 var symbols = " !;#$%&()*+,-./:;<>=?@[]^_'`{}|~";
@@ -63,7 +61,7 @@ var randomnumber = Math.floor(Math.random () *10) + 1;
 var randomUp;
 var randomLow;
 
-// declaration of variables i will use for questions
+// declaration of variables that will be the user's answers to prompts
 var characterLength;
 var caps;
 var NumericInclusion;
@@ -103,10 +101,8 @@ function generatePassword () {
       CharacterQuestion();
     }
     else {
-      // CharacterQuestion = CharacterQuestion.toArray();
-      console.log(eval(characterLength.valueOf()))
-      // Converting string to number
-      console.log ("There are ", characterLength.valueOf(), "characters in this password.");
+      console.log ("There are ", characterLength, "characters in this password.");
+      console.log (typeof +characterLength);
       UppercaseQuestion();
     }
   }
@@ -118,10 +114,10 @@ function generatePassword () {
     caps = window.confirm("Do you want your password to include UPPERCASE characters?  Click 'OK' to confirm or 'CANCEL' for only lowercase.");
     
     if (caps) {
-      console.log ("There should be UPPERCASE letters in this password.", alphabetUpper);
+      console.log ("UPPERCASE letters are in this password.", alphabetUpper);
     }
     else {
-      console.log ("No lowercase letters should be included.");
+      console.log ("No UPPERCASE letters are included.");
     }
 
     NumberQuestion();
@@ -132,53 +128,50 @@ function generatePassword () {
     NumericInclusion = window.confirm("Do you want your password to include NUMBERS?  Click 'OK' to confirm or 'CANCEL'.");
     
     if (NumericInclusion) {
-      console.log ("There should be numbers in this password.");
+      console.log ("Numbers are included in this password.");
     }
     else {
-      console.log ("Numbers should not be included.");
+      console.log ("Numbers are NOT included in this password.");
     }
 
     SpecialCharacterQuestion ();
   }
 
-  /* Question to ask about special characters*/
+  // Question to ask about special characters
   function SpecialCharacterQuestion () {
     SpecialCharacterInclusion = window.confirm("Do you want your password to include any SPECIAL CHARACTERS/SYMBOLS (ex: $&#!~, etc.)?  Click 'OK' to confirm or 'CANCEL'.");
 
     if (SpecialCharacterInclusion) {
-        console.log ("Special characters should be included in this password.", symbols);
+        console.log ("Special characters are included in this password.", symbols);
     } else {
-        console.log ("No symbols or special characters should not be included.");
+        console.log ("No symbols or special characters are included.");
         validate ();
       }
   }
 
-  // at least one character type should be selected
+  // at least one character type should be true
   function validate () {
     if (!caps && !SpecialCharacterInclusion && !NumericInclusion) {
       window.alert("Uh-oh!  Try again.  You must use one of the character types to generate a new password");
-      console.log("The user has to try again.");
+      console.log("The user must try again.");
       UppercaseQuestion();
     }
-    else {
-      console.log ("The user data was submitted succesfully.");
-    }
   }
-
-  stringitalltogether();
   
   function stringitalltogether () {
-    // for (i = 0; i < characterLength; i++) {
-    
-    // }
-    if (caps && NumericInclusion && SpecialCharacterInclusion) {
-      console.log("All true.");
-    }
-    else {
-      console.log("At least one of these is false");
-    }
+    for (i = 0; i < +characterLength; i++) {
+      console.log ("The for loop is programmed correctly.")
 
+      if (caps && NumericInclusion && SpecialCharacterInclusion) {
+        console.log("All true.");
+      }
+      else {
+        console.log("At least one of these is false");
+      }
+    }
   }
+  
+  stringitalltogether();
   
   //   This is where I will add it all together
   // How do I hold this data together to come up with a new password?
