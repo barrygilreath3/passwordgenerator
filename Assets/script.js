@@ -1,65 +1,10 @@
-// Hints for Homework 3
-
-// function generatePassword () {
-//   write logic of code here
-//   whatever value is returned from thisfunction will be stored in the password variable
-
-//    math.random "rps?"
-
-//   one array for numbers
-//   one array for special characters
-//   one array for uppercase
-//   one array for lowercase
-
-//   How do I hold this data together to come up with a new password?
-//   Hint:  look up what += means
-//    it is when you are looking to add a value to an already existing variable.
-//    
-
-
-/*
-
-```
-GIVEN I need a new, secure password
-WHEN I click the button to generate a password
-THEN I am presented with a series of prompts for password criteria
-WHEN prompted for password criteria
-THEN I select which criteria to include in the password
-WHEN prompted for the length of the password
-THEN I choose a length of at least 8 characters and no more than 128 characters
-WHEN asked for character types to include in the password
-THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
-WHEN I answer each prompt
-THEN my input should be validated and at least one character type should be selected
-WHEN all prompts are answered
-THEN a password is generated that matches the selected criteria
-WHEN the password is generated
-THEN the password is either displayed in an alert or written to the page
-```
-
-*/
-
-
-
-// }
-
 // Variable Declarations and Assignments
 // arrays - not presently using
-// var uppercaseletters = ["A", "B", "C", "D", "E", "F", "G", "H", "I","J", "K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-// var lowercaseletters = ["a", "b", "c", "d", "e", "f", "g", "h", "i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-// var symbols = [" ", "!", '"', "#", "$", "%", "&", '(', ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "'", "`", "{", "}", "|", "~"];
-
-
-// declaration of universal index variables
-var alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var alphabetLower = "abcdefghijklmnopqrstuvwxyz";
-var symbols = " !;#$%&()*+,-./:;<>=?@[]^_'`{}|~";
-var numbers = "0123456789";
-
-// declaration of random variables
-var randomnumber = Math.floor(Math.random () *10) + 1;
-var randomUp;
-var randomLow;
+var uppercaseletters = ["A", "B", "C", "D", "E", "F", "G", "H", "I","J", "K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+var lowercaseletters = ["a", "b", "c", "d", "e", "f", "g", "h", "i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+var symbols = ["!", '"', "#", "$", "%", "&", '(', ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "'", "`", "{", "}", "|", "~"];
+var numbers = [0,1,2,3,4,5,6,7,8,9];
+var possiblearray = [];
 
 // declaration of variables that will be the user's answers to prompts
 var characterLength;
@@ -67,158 +12,108 @@ var caps;
 var NumericInclusion;
 var SpecialCharacterInclusion;
 
-function UpperCaseGenerator () {
-  randomUp = alphabetUpper[Math.floor(Math.random () * alphabetUpper.length)];
+function UppercaseQuestion () {
+  caps = window.confirm("Do you want your password to include UPPERCASE characters?  Click 'OK' to confirm or 'CANCEL' for only lowercase.");
+  
+  if (caps) {
+    possiblearray=possiblearray.concat(uppercaseletters);
+  }
+
+  LowercaseQuestion();
 }
 
-UpperCaseGenerator();
+function LowercaseQuestion () {  
+  var lowercaseInclusion = window.confirm("Do you want your password to include LOWERCASE characters?");
 
-function LowerCaseGenerator () {
-  randomLow = alphabetLower[Math.floor(Math.random () * alphabetLower.length)];
+  if (lowercaseInclusion) {
+    possiblearray=possiblearray.concat(lowercaseletters);
+  }
+
+  NumberQuestion();
 }
 
-LowerCaseGenerator ();
+/* Question to ask about numbers*/
+function NumberQuestion () {
+  NumericInclusion = window.confirm("Do you want your password to include NUMBERS?  Click 'OK' to confirm or 'CANCEL'.");
+  
+  if (NumericInclusion) {
+    possiblearray=possiblearray.concat(numbers);
+  }
 
-console.log ("UPPERCASE Index - ", alphabetUpper.length, " letters: ", alphabetUpper);
-console.log ("lowercase index - ", alphabetLower.length, "letters: ", alphabetLower);
-console.log ("Symbol Index - ", symbols.length, " possible symbols: ", symbols);
-console.log ("Number Index - ", numbers.length, " possible numbers:", numbers);
-console.log ("Random Number Generator- ", randomnumber);
-console.log ("Random Uppercase Letter", randomUp);
-console.log ("Random Lowercase Letter", randomLow);
+  SpecialCharacterQuestion();
+}
+
+// Question to ask about special characters
+function SpecialCharacterQuestion () {
+  SpecialCharacterInclusion = window.confirm("Do you want your password to include any SPECIAL CHARACTERS/SYMBOLS (ex: $&#!~, etc.)?  Click 'OK' to confirm or 'CANCEL'.");
+
+  if (SpecialCharacterInclusion) {
+    possiblearray=possiblearray.concat(symbols);
+  }
+
+  console.log(possiblearray);
+
+  validate();
+
+}
+
+function validate () {
+  if (!caps && !lowercaseInclusion && !SpecialCharacterInclusion && !NumericInclusion) {
+    window.alert("Uh-oh!  Try again.  You must use one of the character types to generate a new password");
+    console.log("The user must try again.");
+    UppercaseQuestion();
+  }
+
+  randomizePassword();
+
+}
+
+function randomizePassword () {
+  for (var i=0; i < characterLength; i++) {
+    var index = Math.floor(Math.random()* possiblearray.length);
+    var character = possiblearray[index];
+    solution += character;
+  }
+
+  return solution;
+
+}
+
+// what the computer will spit out
+var solution = ""
+
 
 function generatePassword () {
 
   /* Question to ask about desired password length*/
-  function CharacterQuestion () {
-    characterLength = window.prompt("How many characters would you like your password to contain (range: 8-128 characters?");
-     
+    characterLength = parseInt(window.prompt("How many characters would you like your password to contain (range: 8-128 characters?"));
     if (!characterLength) {
       return;
     }
-    else if (characterLength > 128 || characterLength < 8) {
+    if (characterLength > 128 || characterLength < 8) {
       window.alert("Please enter a number between 8-128.")
-      CharacterQuestion();
-    }
-    else {
-      console.log ("There are ", characterLength, "characters in this password.");
-      console.log (typeof +characterLength);
-      UppercaseQuestion();
-    }
-  }
-
-  CharacterQuestion ();
-
-  /* Question to ask about uppercase*/
-  function UppercaseQuestion () {
-    caps = window.confirm("Do you want your password to include UPPERCASE characters?  Click 'OK' to confirm or 'CANCEL' for only lowercase.");
-    
-    if (caps) {
-      console.log ("UPPERCASE letters are in this password.", alphabetUpper);
-    }
-    else {
-      console.log ("No UPPERCASE letters are included.");
+      return;
     }
 
-    NumberQuestion();
-  }
-  
-  /* Question to ask about numbers*/
-  function NumberQuestion () {
-    NumericInclusion = window.confirm("Do you want your password to include NUMBERS?  Click 'OK' to confirm or 'CANCEL'.");
-    
-    if (NumericInclusion) {
-      console.log ("Numbers are included in this password.");
-    }
-    else {
-      console.log ("Numbers are NOT included in this password.");
-    }
+    UppercaseQuestion();
 
-    SpecialCharacterQuestion ();
-  }
-
-  // Question to ask about special characters
-  function SpecialCharacterQuestion () {
-    SpecialCharacterInclusion = window.confirm("Do you want your password to include any SPECIAL CHARACTERS/SYMBOLS (ex: $&#!~, etc.)?  Click 'OK' to confirm or 'CANCEL'.");
-
-    if (SpecialCharacterInclusion) {
-        console.log ("Special characters are included in this password.", symbols);
-    } else {
-        console.log ("No symbols or special characters are included.");
-        validate ();
-      }
-  }
-
-  // at least one character type should be true
-  function validate () {
-    if (!caps && !SpecialCharacterInclusion && !NumericInclusion) {
-      window.alert("Uh-oh!  Try again.  You must use one of the character types to generate a new password");
-      console.log("The user must try again.");
-      UppercaseQuestion();
-    }
-  }
-  
-  function stringitalltogether () {
-    for (i = 0; i < +characterLength; i++) {
-      console.log ("The for loop is programmed correctly.")
-
-      if (caps && NumericInclusion && SpecialCharacterInclusion) {
-        console.log("All true.");
-      }
-      else {
-        console.log("At least one of these is false");
-      }
-    }
-  }
-  
-  stringitalltogether();
-  
-  //   This is where I will add it all together
-  // How do I hold this data together to come up with a new password?
-  //   Hint:  look up what += means
-  //   it is when you are looking to add a value to an already existing variable.
-
-  // for (let i = 0; i < characterLength.valueOf(); i++) {
-    
-  //   password = [Math.floor(Math.random() * words.length)];
-    
-  //   uppercaseletters
-  //   lowercaseletters
-  //   symbols
-  //   number
-  // }
-
-  // var testing = Math.floor(Math.random() * uppercaseletters.length);
-  
-  // console.log (uppercaseletters.length);
-
-  // // var computerChoice = options[index];
-
+  return;
 
 }
-// 
 
-// THEN a password is generated that matches the selected criteria is either displayed in an alert or written to the page
-
-
-
-
-// Assignment Code
-// Me:  This code assigns a variable called 'generateBtn' to the #generate class of HTML [i.e. the generate button]
-//      Will need to refer to variable "generateBtn" later
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
+  generatePassword();
 
   // Assigns password to generatePassword the result of geneeratePassword function
-  var password = generatePassword();
+  var password = randomizePassword();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
 }
-
 
 // Add event listener to generate button
 // When the generate button is clicked, the "writePassword" function "listens" and registers

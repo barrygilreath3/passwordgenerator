@@ -31,5 +31,16 @@ THEN a password is generated that matches the selected criteria
 WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
 ```
-### Comments
+
+## Comments
 I am new to learning JavaScript and was not able to get the program to run.  It was not for lack of effort, as I spent 15+ hours over the course of 3 days building what is seen in the first commit (3/25/2022).
+
+Update (3/30)/2022):  I received help from a tutor who helped me clean up and correct my code which overly complicated.  The app is now functional.
+
+## URL's
+
+### GitHub
+https://github.com/barrygilreath3/passwordgenerator
+
+### Deployed Website
+https://barrygilreath3.github.io/passwordgenerator/
