@@ -23,7 +23,7 @@ function UppercaseQuestion () {
 }
 
 function LowercaseQuestion () {  
-  var lowercaseInclusion = window.confirm("Do you want your password to include LOWERCASE characters?");
+  var lowercaseInclusion = window.confirm("Do you want your password to include LOWERCASE characters? Click OK to confirm or Cancel to decline.");
 
   if (lowercaseInclusion) {
     possiblearray=possiblearray.concat(lowercaseletters);
